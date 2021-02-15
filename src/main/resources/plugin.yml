@@ -1,0 +1,6 @@
+name: GameAPI
+version: 0.1.0 Beta
+author: Nicholas Harris (ScarabCoder)
+api-version: 1.16
+description: An API for developers to use when developing minigames.
+main: com.scarabcoder.gameapi.GameAPI
