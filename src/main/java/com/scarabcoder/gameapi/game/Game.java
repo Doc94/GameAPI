@@ -13,6 +13,7 @@ import com.scarabcoder.gameapi.util.ScarabUtil;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.attribute.Attribute;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.messaging.ChannelNotRegisteredException;
 
@@ -357,6 +358,7 @@ public class Game {
 			if(player.isOnline()){
 				player.getOnlinePlayer().setGameMode(this.getGameSettings().getMode());
 				player.getOnlinePlayer().setFoodLevel(this.getGameSettings().getFoodLevel());
+				player.getOnlinePlayer().getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(this.getGameSettings().getHealthLevel()); //Patch if player has life modified
 				player.getOnlinePlayer().setHealth(this.getGameSettings().getHealthLevel());
 				if(this.getArena().getLobbySpawn() != null){
 					player.getOnlinePlayer().teleport(this.getArena().getLobbySpawn());
@@ -377,7 +379,6 @@ public class Game {
 		if(player.isOnline()){
 			this.players.remove(player);
 			if(this.getGameSettings().usesBungee() && this.getGameSettings().getLobbyServer() != null){
-		
 				ByteArrayDataOutput out = ByteStreams.newDataOutput();
 				out.writeUTF("Connect");
 				out.writeUTF(this.getGameSettings().getLobbyServer());

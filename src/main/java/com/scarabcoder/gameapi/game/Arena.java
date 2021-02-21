@@ -118,25 +118,20 @@ public class Arena {
 		}
 		GameAPI.sendDebugMessage("Unloading world " + worldName + "...", GameAPI.getPlugin());
 		Bukkit.unloadWorld(worldName, true);
-		Bukkit.getScheduler().scheduleSyncDelayedTask(GameAPI.getPlugin(), new Runnable(){
-
-			@Override
-			public void run() {
-				try {
-					GameAPI.sendDebugMessage("Deleting world " + worldName + "...", GameAPI.getPlugin());
-					FileUtils.deleteDirectory(worldFolder);
-					GameAPI.sendDebugMessage("Copying default world from GameWorlds/" + worldName + "...", GameAPI.getPlugin());
-					FileUtils.copyDirectory(new File(GameAPI.getGameWorldsFolder(), worldName), new File(GameAPI.getGameWorldsFolder().getParentFile(), worldName));
-					GameAPI.sendDebugMessage("Loading world " + worldName + " on server...", GameAPI.getPlugin());
-					WorldCreator creator = new WorldCreator(worldName);
-					creator.generatorSettings("3;minecraft:air;127;");
-					creator.type(WorldType.FLAT);
-					world = Bukkit.createWorld(creator);
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
+		Bukkit.getScheduler().scheduleSyncDelayedTask(GameAPI.getPlugin(), () -> {
+			try {
+				GameAPI.sendDebugMessage("Deleting world " + worldName + "...", GameAPI.getPlugin());
+				FileUtils.deleteDirectory(worldFolder);
+				GameAPI.sendDebugMessage("Copying default world from GameWorlds/" + worldName + "...", GameAPI.getPlugin());
+				FileUtils.copyDirectory(new File(GameAPI.getGameWorldsFolder(), worldName), new File(GameAPI.getGameWorldsFolder().getParentFile(), worldName));
+				GameAPI.sendDebugMessage("Loading world " + worldName + " on server...", GameAPI.getPlugin());
+				WorldCreator creator = new WorldCreator(worldName);
+				creator.generatorSettings("3;minecraft:air;127;");
+				creator.type(WorldType.FLAT);
+				world = Bukkit.createWorld(creator);
+			} catch (IOException e) {
+				e.printStackTrace();
 			}
-			
 		}, 20);
 		
 		
