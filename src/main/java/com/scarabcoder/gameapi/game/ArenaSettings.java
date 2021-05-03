@@ -139,7 +139,7 @@ public class ArenaSettings {
 		this.allowBlockDrop = true;
 		this.allowTimeChange = true;
 		this.allowWeatherChange = true;
-		this.setAllowInventoryChange(true);
+		this.allowInventoryChange = true;
 		this.allowChat = true;
 		this.allowDropOnPlayerDie = true;
 	}

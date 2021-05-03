@@ -269,7 +269,7 @@ public class Game {
 			}else{
 				for(GamePlayer player : this.getPlayers()){
 					if(player.isOnline() && getGamePlayerType(player).equals(GamePlayerType.PLAYER)){
-						player.getOnlinePlayer().teleport(this.getSpawns().get(new Random().nextInt(this.getSpawns().size())));
+						player.getOnlinePlayer().teleport(getRandomSpawn());
 					}
 				}
 			}
@@ -424,6 +424,14 @@ public class Game {
 		PlayerLeaveGameEvent ev = new PlayerLeaveGameEvent(player, this);
 		Bukkit.getPluginManager().callEvent(ev);
 		
+	}
+
+	/**
+	 * Get a random Spawn Location.
+	 * @return Location
+	 */
+	public Location getRandomSpawn() {
+		return this.getSpawns().get(new Random().nextInt(this.getSpawns().size()));
 	}
 	
 	/**
